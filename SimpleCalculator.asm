@@ -10,7 +10,7 @@
 
 main:
     # Primeira mensagem: pedir o primeiro número
-    li $v0, 4                # system call para imprimir string
+    li $v0, 4                ; system call para imprimir string
     la $a0, prompt1          # carregar endereço da mensagem
     syscall                  # chamada do sistema
     
