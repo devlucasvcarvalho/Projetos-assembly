@@ -9,53 +9,53 @@
     .globl main
 
 main:
-    # Primeira mensagem: pedir o primeiro número
+    ; Primeira mensagem: pedir o primeiro número
     li $v0, 4                ; system call para imprimir string
     la $a0, prompt1          ; carregar endereço da mensagem
     syscall                  ; chamada do sistema
     
-    # Leitura do primeiro número
+    ; Leitura do primeiro número
     li $v0, 5                ; system call para ler inteiro
     syscall
     move $t0, $v0            ; armazena o primeiro número em $t0
     
-    # Segunda mensagem: pedir o segundo número
+    ; Segunda mensagem: pedir o segundo número
     li $v0, 4
     la $a0, prompt2
     syscall
     
-    # Leitura do segundo número
+    ; Leitura do segundo número
     li $v0, 5
     syscall
     move $t1, $v0            ; armazena o segundo número em $t1
     
-    # Mensagem para escolha da operação
+    ; Mensagem para escolha da operação
     li $v0, 4
     la $a0, prompt3
     syscall
     
-    # Leitura da escolha da operação
+    ; Leitura da escolha da operação
     li $v0, 5
     syscall
     move $t2, $v0            ; armazena a operação escolhida em $t2
     
-    # Realiza a operação com base na escolha
+    ; Realiza a operação com base na escolha
     beq $t2, 1, soma         
     beq $t2, 2, subtracao    
     beq $t2, 3, multiplicacao 
     beq $t2, 4, divisao      
     
-    # Operação: Soma
+    ; Operação: Soma
 soma:
     add $t3, $t0, $t1       
     j resultado              ; Salta para a exibição do resultado
 
-    # Operação: Subtração
+    ; Operação: Subtração
 subtracao:
     sub $t3, $t0, $t1       
     j resultado
     
-    # Operação: Multiplicação
+    ; Operação: Multiplicação
 multiplicacao:
     mul $t3, $t0, $t1       
     j resultado
