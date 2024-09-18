@@ -11,13 +11,13 @@
 main:
     # Primeira mensagem: pedir o primeiro número
     li $v0, 4                ; system call para imprimir string
-    la $a0, prompt1          # carregar endereço da mensagem
-    syscall                  # chamada do sistema
+    la $a0, prompt1          ; carregar endereço da mensagem
+    syscall                  ; chamada do sistema
     
     # Leitura do primeiro número
-    li $v0, 5                # system call para ler inteiro
+    li $v0, 5                ; system call para ler inteiro
     syscall
-    move $t0, $v0            # armazena o primeiro número em $t0
+    move $t0, $v0            ; armazena o primeiro número em $t0
     
     # Segunda mensagem: pedir o segundo número
     li $v0, 4
@@ -27,7 +27,7 @@ main:
     # Leitura do segundo número
     li $v0, 5
     syscall
-    move $t1, $v0            # armazena o segundo número em $t1
+    move $t1, $v0            ; armazena o segundo número em $t1
     
     # Mensagem para escolha da operação
     li $v0, 4
@@ -37,34 +37,34 @@ main:
     # Leitura da escolha da operação
     li $v0, 5
     syscall
-    move $t2, $v0            # armazena a operação escolhida em $t2
+    move $t2, $v0            ; armazena a operação escolhida em $t2
     
     # Realiza a operação com base na escolha
-    beq $t2, 1, soma         # Se $t2 == 1, vai para soma
-    beq $t2, 2, subtracao    # Se $t2 == 2, vai para subtracao
-    beq $t2, 3, multiplicacao # Se $t2 == 3, vai para multiplicacao
-    beq $t2, 4, divisao      # Se $t2 == 4, vai para divisao
+    beq $t2, 1, soma         
+    beq $t2, 2, subtracao    
+    beq $t2, 3, multiplicacao 
+    beq $t2, 4, divisao      
     
     # Operação: Soma
 soma:
-    add $t3, $t0, $t1        # $t3 = $t0 + $t1
-    j resultado              # Salta para a exibição do resultado
+    add $t3, $t0, $t1       
+    j resultado              ; Salta para a exibição do resultado
 
     # Operação: Subtração
 subtracao:
-    sub $t3, $t0, $t1        # $t3 = $t0 - $t1
+    sub $t3, $t0, $t1       
     j resultado
     
     # Operação: Multiplicação
 multiplicacao:
-    mul $t3, $t0, $t1        # $t3 = $t0 * $t1
+    mul $t3, $t0, $t1       
     j resultado
 
-    # Operação: Divisão
+    ; Operação: Divisão
 divisao:
     beq $t1, $zero, erro_divisao # Evita divisão por zero
-    div $t0, $t1            # $t0 = dividendo, $t1 = divisor
-    mflo $t3                # Resultado da divisão em $t3
+    div $t0, $t1           
+    mflo $t3               
     j resultado
 
 erro_divisao:
@@ -75,23 +75,23 @@ erro_divisao:
     syscall
     j fim
     
-# Exibe o resultado
+; Exibe o resultado
 resultado:
-    li $v0, 4                # system call para imprimir string
-    la $a0, result_msg       # Carrega a mensagem "Resultado: "
+    li $v0, 4              
+    la $a0, result_msg      
     syscall
     
-    # Imprimir o valor do resultado ($t3)
-    li $v0, 1                # system call para imprimir inteiro
-    move $a0, $t3            # Coloca o resultado em $a0 para imprimir
+    ; Imprimir o valor do resultado ($t3)
+    li $v0, 1               
+    move $a0, $t3           
     syscall
 
-    # Nova linha
+    ; Nova linha
     li $v0, 4
     la $a0, newline
     syscall
 
 fim:
-    # Finalizar o programa
-    li $v0, 10               # system call para encerrar o programa
+    ; Finalizar o programa
+    li $v0, 10               
     syscall
